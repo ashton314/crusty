@@ -27,6 +27,9 @@ impl<T> Heap<T> where
         None
     }
 
+    fn sift_down(&mut self, sift: usize) {
+    }
+
     fn bubble_up(&mut self) {
         self.bubble_up_n(self.heap.len() - 1);
     }
@@ -77,7 +80,7 @@ mod tests {
     }
 
     #[test]
-    fn new() {
+    fn new_and_insert() {
         let mut foo = Heap::new(10);
         foo.push(42);
         foo.push(5);
