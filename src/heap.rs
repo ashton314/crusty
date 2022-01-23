@@ -1,5 +1,6 @@
 // Generic heap
 
+#[derive(Debug)]
 pub struct Heap<T> where
     T: PartialOrd {
     heap: Vec<T>
@@ -7,6 +8,16 @@ pub struct Heap<T> where
 
 impl<T> Heap<T> where
     T: PartialOrd {
+
+    pub fn new(init: T) -> Heap<T> {
+        let mut the_heap = Vec::new();
+        the_heap.push(init);
+
+        Heap {
+            heap: the_heap
+        }
+    }
+
     pub fn push(&mut self, val: T) {
         self.heap.push(val);
         self.bubble_up();
@@ -63,5 +74,15 @@ mod tests {
         assert_eq!(parent_idx(5), Some(2));
         assert_eq!(parent_idx(6), Some(2));
         assert_eq!(parent_idx(7), Some(3));
+    }
+
+    #[test]
+    fn new() {
+        let mut foo = Heap::new(10);
+        foo.push(42);
+        foo.push(5);
+        foo.push(3);
+        foo.push(4);
+        assert_eq!(foo.heap, vec![3, 4, 10, 42, 5])
     }
 }
