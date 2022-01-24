@@ -138,4 +138,29 @@ mod tests {
         assert_eq!(foo.pop(), None);
         assert_eq!(foo.pop(), None);
     }
+
+    #[test]
+    fn mixed_pops_and_pushes() {
+        let mut foo = Heap::new();
+        foo.push(10);
+        foo.push(42);
+        foo.push(5);
+        foo.push(3);
+        foo.push(4);
+        assert_eq!(foo.heap, vec![3, 4, 10, 42, 5]);
+
+        assert_eq!(foo.pop(), Some(3));
+        assert_eq!(foo.pop(), Some(4));
+        foo.push(2);
+        foo.push(8);
+        assert_eq!(foo.pop(), Some(2));
+        foo.push(12);
+        assert_eq!(foo.pop(), Some(5));
+        assert_eq!(foo.pop(), Some(8));
+        assert_eq!(foo.pop(), Some(10));
+        assert_eq!(foo.pop(), Some(12));
+        assert_eq!(foo.pop(), Some(42));
+        assert_eq!(foo.pop(), None);
+        assert_eq!(foo.pop(), None);
+    }
 }
