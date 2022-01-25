@@ -34,6 +34,10 @@ impl<T> Heap<T> where
         }
     }
 
+    pub fn peek(&self) -> Option<&T> {
+        self.heap.get(0)
+    }
+
     fn sift_down(&mut self, sift: usize) {
         let (chld_lix, chld_rix) = child_idxs(sift);
         match (self.heap.get(chld_lix), self.heap.get(chld_rix)) {
