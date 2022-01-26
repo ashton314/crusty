@@ -1,0 +1,47 @@
+#+title: Crusty
+
+Crusty - Rusty C, an experiment with calling Rust from C
+
+* Synopsis
+
+#+begin_src bash
+  cargo build
+  cd scum/
+  make a.out
+  ./a.out
+#+end_src
+
+* Description
+
+[[file:src/heap.rs]] contains a generic implementation of a heap. As long as elements implement the ~PartialOrd~ trait, they can be used.
+
+[[file:src/cheap_job.rs]] is a c-heap adapter. It creates a simple struct representable in C that implements the ~PartialOrd~ trait as well. Thus, a C program can manufacture as many ~Job~ structs as it likes and then pass them to the Rust functions for enqueuing and dequeuing. (C will be responsible for memory reclamation.)
+
+[[file:scum/cheap_job.h]] Is a header file that matches the functions declared ~extern "C"~ in [[file:src/cheap_job.rs]] which the C code uses to link.
+
+This line in [[file:Cargo.toml][Cargo.toml]] instructs ~cargo~ to build a ~cdylib~:
+
+#+begin_src toml
+[lib]
+name = "crusty"
+crate-type = ["cdylib"]
+#+end_src
+
+The [[file:scum/Makefile][Makefile in scum/]] grabs this library and passes it to the compiler.
+
+* Resources
+
+From /The Embedded Rust Book/:
+
+ - https://docs.rust-embedded.org/book/interoperability/index.html
+ - https://docs.rust-embedded.org/book/interoperability/c-with-rust.html
+ - https://docs.rust-embedded.org/book/interoperability/rust-with-c.html
+
+From /The Omnibus/:
+
+ - http://jakegoulding.com/rust-ffi-omnibus/objects/
+ - http://jakegoulding.com/rust-ffi-omnibus/string_return/
+
+* Author
+
+Ashton Wiersdorf
