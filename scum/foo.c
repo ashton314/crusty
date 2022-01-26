@@ -53,4 +53,12 @@ int main(int argc, char* argv[]) {
   printf("Should be null: %d\n", pop_cheap_job(queue) == NULL ? 1 : 0);
 
   free_cheap_job(queue);
+  free(j1);
+  free(j2);
+  free(j3);
+  free(j4);
+  free(j5);
+  free(j6);
+  free(j7);
+  free(j8);
 }
